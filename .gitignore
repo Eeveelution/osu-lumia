@@ -1,0 +1,11 @@
+*.db
+.vs/
+x86/
+ARM/
+ipch/
+Debug/
+Release/
+packages/
+.idea/
+*.opendb
+*.filters
