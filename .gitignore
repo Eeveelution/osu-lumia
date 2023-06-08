@@ -9,3 +9,6 @@ packages/
 .idea/
 *.opendb
 *.filters
+AppPackages/
+BundleArtifacts/
+*.user
