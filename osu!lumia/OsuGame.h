@@ -6,13 +6,13 @@
 #include "Content\SampleFpsTextRenderer.h"
 
 // Renders Direct2D and 3D content on the screen.
-namespace osu_lumia
+namespace osu
 {
-	class osu_lumiaMain : public DX::IDeviceNotify
+	class OsuGame : public DX::IDeviceNotify
 	{
 	public:
-		osu_lumiaMain(const std::shared_ptr<DX::DeviceResources>& deviceResources);
-		~osu_lumiaMain();
+		OsuGame(const std::shared_ptr<DX::DeviceResources>& deviceResources);
+		~OsuGame();
 		void CreateWindowSizeDependentResources();
 		void Update();
 		bool Render();

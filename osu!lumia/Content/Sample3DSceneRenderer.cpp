@@ -3,7 +3,7 @@
 
 #include "..\Common\DirectXHelper.h"
 
-using namespace osu_lumia;
+using namespace osu;
 
 using namespace DirectX;
 using namespace Windows::Foundation;

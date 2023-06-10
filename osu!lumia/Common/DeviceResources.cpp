@@ -228,9 +228,8 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 	// orientation, the dimensions must be reversed.
 	DXGI_MODE_ROTATION displayRotation = ComputeDisplayRotation();
 
-	bool swapDimensions = displayRotation == DXGI_MODE_ROTATION_ROTATE90 || displayRotation == DXGI_MODE_ROTATION_ROTATE270;
-	m_d3dRenderTargetSize.Width = swapDimensions ? m_outputSize.Height : m_outputSize.Width;
-	m_d3dRenderTargetSize.Height = swapDimensions ? m_outputSize.Width : m_outputSize.Height;
+	m_d3dRenderTargetSize.Width = m_outputSize.Width;
+	m_d3dRenderTargetSize.Height = m_outputSize.Height;
 
 	if (m_swapChain != nullptr)
 	{
@@ -314,36 +313,23 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 	// This is due to the difference in coordinate spaces.  Additionally,
 	// the 3D matrix is specified explicitly to avoid rounding errors.
 
+	//m_orientationTransform2D = Matrix3x2F::Identity();
+	//m_orientationTransform3D = ScreenRotation::Rotation0;
+
 	switch (displayRotation)
 	{
+	case DXGI_MODE_ROTATION_ROTATE180:
 	case DXGI_MODE_ROTATION_IDENTITY:
 		m_orientationTransform2D = Matrix3x2F::Identity();
 		m_orientationTransform3D = ScreenRotation::Rotation0;
 		break;
-
 	case DXGI_MODE_ROTATION_ROTATE90:
-		m_orientationTransform2D = 
-			Matrix3x2F::Rotation(90.0f) *
-			Matrix3x2F::Translation(m_logicalSize.Height, 0.0f);
-		m_orientationTransform3D = ScreenRotation::Rotation270;
-		break;
-
-	case DXGI_MODE_ROTATION_ROTATE180:
-		m_orientationTransform2D = 
+	case DXGI_MODE_ROTATION_ROTATE270:
+		m_orientationTransform2D =
 			Matrix3x2F::Rotation(180.0f) *
 			Matrix3x2F::Translation(m_logicalSize.Width, m_logicalSize.Height);
 		m_orientationTransform3D = ScreenRotation::Rotation180;
 		break;
-
-	case DXGI_MODE_ROTATION_ROTATE270:
-		m_orientationTransform2D = 
-			Matrix3x2F::Rotation(270.0f) *
-			Matrix3x2F::Translation(0.0f, m_logicalSize.Width);
-		m_orientationTransform3D = ScreenRotation::Rotation90;
-		break;
-
-	default:
-		throw ref new FailureException();
 	}
 
 	DX::ThrowIfFailed(

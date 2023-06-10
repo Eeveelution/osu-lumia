@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-namespace osu_lumia
+namespace osu
 {
 	// Constant buffer used to send MVP matrices to the vertex shader.
 	struct ModelViewProjectionConstantBuffer

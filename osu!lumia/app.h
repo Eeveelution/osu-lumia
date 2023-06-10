@@ -2,9 +2,9 @@
 
 #include "pch.h"
 #include "Common\DeviceResources.h"
-#include "osu_lumiaMain.h"
+#include "OsuGame.h"
 
-namespace osu_lumia
+namespace osu
 {
 	// Main entry point for our app. Connects the app with the Windows shell and handles application lifecycle events.
 	ref class App sealed : public Windows::ApplicationModel::Core::IFrameworkView
@@ -26,14 +26,14 @@ protected:
 		void OnResuming(Platform::Object^ sender, Platform::Object^ args);
 
 		// Window event handlers.
-#if !(WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
+#if (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
 		void OnWindowSizeChanged(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::WindowSizeChangedEventArgs^ args);
 #endif
 		void OnVisibilityChanged(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::VisibilityChangedEventArgs^ args);
 		void OnWindowClosed(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::CoreWindowEventArgs^ args);
 
 		// DisplayInformation event handlers.
-#if !(WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
+#if (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
 		void OnDpiChanged(Windows::Graphics::Display::DisplayInformation^ sender, Platform::Object^ args);
 		void OnOrientationChanged(Windows::Graphics::Display::DisplayInformation^ sender, Platform::Object^ args);
 #endif
@@ -41,7 +41,7 @@ protected:
 
 	private:
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
-		std::unique_ptr<osu_lumiaMain> m_main;
+		std::unique_ptr<OsuGame> m_main;
 		bool m_windowClosed;
 		bool m_windowVisible;
 	};

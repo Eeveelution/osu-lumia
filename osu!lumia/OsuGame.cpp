@@ -1,15 +1,15 @@
 ﻿#include "pch.h"
-#include "osu_lumiaMain.h"
+#include "OsuGame.h"
 #include "Common\DirectXHelper.h"
 
-using namespace osu_lumia;
+using namespace osu;
 
 using namespace Windows::Foundation;
 using namespace Windows::System::Threading;
 using namespace Concurrency;
 
 // Loads and initializes application assets when the application is loaded.
-osu_lumiaMain::osu_lumiaMain(const std::shared_ptr<DX::DeviceResources>& deviceResources) :
+OsuGame::OsuGame(const std::shared_ptr<DX::DeviceResources>& deviceResources) :
 	m_deviceResources(deviceResources)
 {
 	// Register to be notified if the Device is lost or recreated
@@ -28,21 +28,21 @@ osu_lumiaMain::osu_lumiaMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	*/
 }
 
-osu_lumiaMain::~osu_lumiaMain()
+OsuGame::~OsuGame()
 {
 	// Deregister device notification
 	m_deviceResources->RegisterDeviceNotify(nullptr);
 }
 
 // Updates application state when the window size changes (e.g. device orientation change)
-void osu_lumiaMain::CreateWindowSizeDependentResources() 
+void OsuGame::CreateWindowSizeDependentResources() 
 {
 	// TODO: Replace this with the size-dependent initialization of your app's content.
 	m_sceneRenderer->CreateWindowSizeDependentResources();
 }
 
 // Updates the application state once per frame.
-void osu_lumiaMain::Update() 
+void OsuGame::Update() 
 {
 	// Update scene objects.
 	m_timer.Tick([&]()
@@ -55,7 +55,7 @@ void osu_lumiaMain::Update()
 
 // Renders the current frame according to the current application state.
 // Returns true if the frame was rendered and is ready to be displayed.
-bool osu_lumiaMain::Render() 
+bool OsuGame::Render() 
 {
 	// Don't try to render anything before the first Update.
 	if (m_timer.GetFrameCount() == 0)
@@ -86,14 +86,14 @@ bool osu_lumiaMain::Render()
 }
 
 // Notifies renderers that device resources need to be released.
-void osu_lumiaMain::OnDeviceLost()
+void OsuGame::OnDeviceLost()
 {
 	m_sceneRenderer->ReleaseDeviceDependentResources();
 	m_fpsTextRenderer->ReleaseDeviceDependentResources();
 }
 
 // Notifies renderers that device resources may now be recreated.
-void osu_lumiaMain::OnDeviceRestored()
+void OsuGame::OnDeviceRestored()
 {
 	m_sceneRenderer->CreateDeviceDependentResources();
 	m_fpsTextRenderer->CreateDeviceDependentResources();

@@ -3,7 +3,7 @@
 
 #include "Common/DirectXHelper.h"
 
-using namespace osu_lumia;
+using namespace osu;
 
 // Initializes D2D resources used for text rendering.
 SampleFpsTextRenderer::SampleFpsTextRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources) : 

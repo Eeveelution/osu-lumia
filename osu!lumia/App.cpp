@@ -3,7 +3,7 @@
 
 #include <ppltasks.h>
 
-using namespace osu_lumia;
+using namespace osu;
 
 using namespace concurrency;
 using namespace Windows::ApplicationModel;
@@ -68,7 +68,7 @@ void App::SetWindow(CoreWindow^ window)
 	DisplayInformation::DisplayContentsInvalidated +=
 		ref new TypedEventHandler<DisplayInformation^, Object^>(this, &App::OnDisplayContentsInvalidated);
 
-#if !(WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
+#if (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
 	window->SizeChanged +=
 		ref new TypedEventHandler<CoreWindow^, WindowSizeChangedEventArgs^>(this, &App::OnWindowSizeChanged);
 
@@ -93,7 +93,7 @@ void App::Load(Platform::String^ entryPoint)
 {
 	if (m_main == nullptr)
 	{
-		m_main = std::unique_ptr<osu_lumiaMain>(new osu_lumiaMain(m_deviceResources));
+		m_main = std::unique_ptr<OsuGame>(new OsuGame(m_deviceResources));
 	}
 }
 
@@ -174,7 +174,7 @@ void App::OnWindowClosed(CoreWindow^ sender, CoreWindowEventArgs^ args)
 	m_windowClosed = true;
 }
 
-#if !(WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
+#if (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
 void App::OnWindowSizeChanged(CoreWindow^ sender, WindowSizeChangedEventArgs^ args)
 {
 	m_deviceResources->SetLogicalSize(Size(sender->Bounds.Width, sender->Bounds.Height));
@@ -190,7 +190,7 @@ void App::OnDisplayContentsInvalidated(DisplayInformation^ sender, Object^ args)
 }
 
 
-#if !(WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
+#if (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
 void App::OnDpiChanged(DisplayInformation^ sender, Object^ args)
 {
 	m_deviceResources->SetDpi(sender->LogicalDpi);
