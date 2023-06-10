@@ -4,10 +4,8 @@
 #include "Common\DeviceResources.h"
 
 // Renders Direct2D and 3D content on the screen.
-namespace osu
-{
-	class OsuGame : public DX::IDeviceNotify
-	{
+namespace osu {
+	class OsuGame : public DX::IDeviceNotify {
 	public:
 		OsuGame(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 		~OsuGame();

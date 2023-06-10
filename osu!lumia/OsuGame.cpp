@@ -10,8 +10,7 @@ using namespace Concurrency;
 
 // Loads and initializes application assets when the application is loaded.
 OsuGame::OsuGame(const std::shared_ptr<DX::DeviceResources>& deviceResources) :
-	m_deviceResources(deviceResources)
-{
+	m_deviceResources(deviceResources) {
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
 
@@ -23,34 +22,28 @@ OsuGame::OsuGame(const std::shared_ptr<DX::DeviceResources>& deviceResources) :
 	*/
 }
 
-OsuGame::~OsuGame()
-{
+OsuGame::~OsuGame() {
 	// Deregister device notification
 	m_deviceResources->RegisterDeviceNotify(nullptr);
 }
 
 // Updates application state when the window size changes (e.g. device orientation change)
-void OsuGame::CreateWindowSizeDependentResources() 
-{
+void OsuGame::CreateWindowSizeDependentResources() {
 }
 
 // Updates the application state once per frame.
-void OsuGame::Update() 
-{
+void OsuGame::Update() {
 	// Update scene objects.
-	m_timer.Tick([&]()
-	{
+	m_timer.Tick([&]() {
 		//Update Here
 	});
 }
 
 // Renders the current frame according to the current application state.
 // Returns true if the frame was rendered and is ready to be displayed.
-bool OsuGame::Render() 
-{
+bool OsuGame::Render() {
 	// Don't try to render anything before the first Update.
-	if (m_timer.GetFrameCount() == 0)
-	{
+	if (m_timer.GetFrameCount() == 0) {
 		return false;
 	}
 
@@ -72,12 +65,10 @@ bool OsuGame::Render()
 }
 
 // Notifies renderers that device resources need to be released.
-void OsuGame::OnDeviceLost()
-{
+void OsuGame::OnDeviceLost() {
 }
 
 // Notifies renderers that device resources may now be recreated.
-void OsuGame::OnDeviceRestored()
-{
+void OsuGame::OnDeviceRestored() {
 	CreateWindowSizeDependentResources();
 }
